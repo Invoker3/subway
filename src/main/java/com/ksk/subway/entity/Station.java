@@ -2,9 +2,6 @@ package com.ksk.subway.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-import java.util.Set;
-
 @Entity
 public class Station {
 
@@ -15,22 +12,6 @@ public class Station {
     @Column(name = "station_name")
     String stationName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "station_zone",
-            joinColumns = @JoinColumn(name = "station_id"),
-            inverseJoinColumns = @JoinColumn(name = "zone_id")
-    )
-    Set<Zone> zones;
-
-
-//    public Station(String name, List<Integer> zones) {
-//        this.name = name;
-//        this.zones = zones;
-//    }
-
-    public Station() {
-    }
 
     public int getId() {
         return id;
@@ -48,12 +29,6 @@ public class Station {
         this.stationName = stationName;
     }
 
-    public Set<Zone> getZones() {
-        return zones;
-    }
 
-    public void setZones(Set<Zone> zones) {
-        this.zones = zones;
-    }
 }
 
