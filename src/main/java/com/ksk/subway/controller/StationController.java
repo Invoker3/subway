@@ -1,7 +1,9 @@
 package com.ksk.subway.controller;
 
+import com.ksk.subway.dto.StationRequest;
+import com.ksk.subway.entity.Station;
 import com.ksk.subway.entity.User;
-import com.ksk.subway.service.UserService;
+import com.ksk.subway.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -11,21 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/subway/user")
-public class UserController {
+@RequestMapping("/api/subway/station")
+public class StationController {
 
-    private final UserService userService;
+    private final StationService stationService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    public StationController(StationService stationService) {this.stationService = stationService;}
 
-    @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
+    @PostMapping("/addStation")
+    public ResponseEntity<String> addUser(@RequestBody StationRequest request) {
         try {
-            userService.addUser(user);
-            return ResponseEntity.ok("User added successfully.");
+            stationService.addStation(request.getStationName(), request.getZoneNumbers());
+            return ResponseEntity.ok("Station added successfully.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }

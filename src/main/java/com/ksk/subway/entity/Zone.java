@@ -2,8 +2,6 @@ package com.ksk.subway.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 public class Zone {
 
@@ -11,8 +9,8 @@ public class Zone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany(mappedBy = "zones")
-    private Set<Station> stations;
+    @Column(name = "zone_number", nullable = false, unique = true)
+    private int zoneNumber;
 
     public int getId() {
         return id;
@@ -22,11 +20,11 @@ public class Zone {
         this.id = id;
     }
 
-    public Set<Station> getStations() {
-        return stations;
+    public int getZoneNumber() {
+        return zoneNumber;
     }
 
-    public void setStations(Set<Station> stations) {
-        this.stations = stations;
+    public void setZoneNumber(int zoneNumber) {
+        this.zoneNumber = zoneNumber;
     }
 }
