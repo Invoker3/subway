@@ -23,7 +23,11 @@ public class UserController {
 
     @PostMapping("/addUser")
     public ResponseEntity<String> addUser(@RequestBody User user) {
-        userService.addUser(user);
-        return new ResponseEntity<>(HttpStatusCode.valueOf(200));
+        try {
+            userService.addUser(user);
+            return ResponseEntity.ok("User added successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
     }
 }
