@@ -2,6 +2,8 @@ package com.ksk.subway.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Station {
 
@@ -11,7 +13,6 @@ public class Station {
 
     @Column(name = "station_name")
     String stationName;
-
 
     public int getId() {
         return id;
