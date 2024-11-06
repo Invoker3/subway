@@ -48,6 +48,8 @@ public class StationService {
             }
         }
     }
+
+    public List<Station> getAllStations() { return stationRepository.findAll(); }
 //
 //    public boolean isInSameZone(Station other) {
 //        for (int zone : this.zones) {
