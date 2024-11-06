@@ -1,13 +1,48 @@
 package com.ksk.subway.service;
 
+import com.ksk.subway.entity.Journey;
 import com.ksk.subway.entity.Station;
+import com.ksk.subway.repository.JourneyRepository;
+import com.ksk.subway.repository.StationRepository;
+import com.ksk.subway.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class JourneyService {
+
+    private final JourneyRepository journeyRepository;
+    private final UserRepository userRepository;
+    private final StationRepository stationRepository;
+
+    @Autowired
+    JourneyService(JourneyRepository journeyRepository, UserRepository userRepository,
+                   StationRepository stationRepository) {
+        this.journeyRepository = journeyRepository;
+        this.userRepository = userRepository;
+        this.stationRepository = stationRepository;
+    }
+
+    public void addJourney(Journey journey) {
+        journey.setJourneyDate(Instant.now());
+        if(journey.getId() != null && userRepository.findById(journey.getId()).isPresent())
+            journey.setId(journey.getId());
+        else
+            throw new IllegalArgumentException("User ID: " + journey.getId() + " not found.");
+
+        if(stationRepository.findById(journey.getStartingStationID()).isPresent() &&
+                stationRepository.findById(journey.getEndingStationID()).isPresent()) {
+            journey.setStartingStationID(journey.getStartingStationID());
+            journey.setEndingStationID(journey.getEndingStationID());
+        } else
+            throw new IllegalArgumentException("Station ID not found.");
+
+        journeyRepository.save(journey);
+    }
 
 //    public static double calculateFare(Station entry, Station exit) {
 //        List<Double> possibleFares = new ArrayList<>();

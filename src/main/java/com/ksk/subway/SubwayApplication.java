@@ -1,15 +1,7 @@
 package com.ksk.subway;
 
-import com.ksk.subway.entity.OysterCard;
-import com.ksk.subway.entity.Station;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
 
 @SpringBootApplication
 public class SubwayApplication {
